@@ -1,0 +1,44 @@
+<div class="side-menu">
+  <mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="menu-content" mode="side" [opened]="true">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon style="margin-right: 0.5rem;"> record_voice_over</mat-icon>
+              AI assistant
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-body">
+            <div class="panel-body-option" routerLink="/chat" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <mat-icon> forum</mat-icon>
+              <a>Chat with AI assistant</a>
+            </div>
+            <div class="panel-body-option" routerLink="/strategy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <mat-icon>event_note</mat-icon>
+              <a>Defining strategy</a>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon style="margin-right: 0.5rem;"> person_pin</mat-icon>
+              Profile
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-body">
+          <div class="panel-body-option" routerLink="/tactics" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon>save_alt</mat-icon>
+            <a>Saved tactics</a>
+          </div>
+          <div class="panel-body-option" routerLink="/information" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon>info</mat-icon>
+            <a>Personal information</a>
+          </div>
+        </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>

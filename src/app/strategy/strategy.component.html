@@ -1,0 +1,96 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content class="container-card">
+      <div class="strategy-creation">
+        <div class="strategy-option">
+          <h1>Define desired strategy in just a few steps!</h1>
+          <form [formGroup]="strategyForm" class="form-group">
+            <mat-form-field class="mat-form-field league">
+              <mat-label>League</mat-label>
+              <input matInput formControlName="league" readonly />
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>Your club:</mat-label>
+              <input
+                type="text"
+                placeholder="Arsenal"
+                aria-label="your club"
+                matInput
+                formControlName="club"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let club of clubFilteredOptions | async"
+                  [value]="club"
+                >
+                  {{ club }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>Opponent club:</mat-label>
+              <input
+                type="text"
+                placeholder="Arsenal"
+                aria-label="opponent club"
+                matInput
+                formControlName="opponentClub"
+                [matAutocomplete]="autoOpponent"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                #autoOpponent="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let opponentClub of opponentClubFilteredOptions | async"
+                  [value]="opponentClub"
+                >
+                  {{ opponentClub }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+          <section class="section">
+            <span class="list-section">
+              <mat-label class="list-title"
+                >Select what element of strategy to include:</mat-label
+              >
+              <ul>
+                <li *ngFor="let strategyChoice of strategyChoices">
+                  <mat-checkbox
+                    [checked]="strategyChoice.completed"
+                    (change)="addCheckBoxValue(strategyChoice.name, $event)"
+                  >
+                    {{ strategyChoice.name }}
+                  </mat-checkbox>
+                </li>
+              </ul>
+            </span>
+            <button
+              class="generate-strategy"
+              mat-raised-button
+              (click)="generateStrategy()"
+            >
+              Generate strategy <mat-icon>loop</mat-icon>
+            </button>
+          </section>
+        </div>
+        <div class="strategy-animation">
+          <img class="bounce-top" src="../../assets/bot.png" alt="">
+        </div>
+      </div>
+      <div class="strategy-output">
+        <h2>Created strategy:</h2>
+        <mat-card *ngFor="let document of documents">
+          <mat-card-content>
+            <span>{{ document.name }}</span>
+            <mat-icon (click)="downloadPdf()">picture_as_pdf</mat-icon>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

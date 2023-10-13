@@ -1,0 +1,95 @@
+.side-menu {
+  position: fixed;
+  left: 0;
+  top: 4rem;
+  width: 20rem;
+  height: 100%;
+
+  .container {
+    height: 100%;
+
+    .menu-content {
+      background-color: #dff0ff;
+
+      mat-expansion-panel {
+        background-color: #dff0ff;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        &:hover {
+          background-color: #bce0ff00;
+          mat-panel-title {
+            color: #00477c;
+          }
+        }
+
+        mat-panel-title {
+          font-size: large;
+        }
+
+        .title {
+          .header-icon {
+            margin-right: 0.2rem;
+          }
+        }
+
+        .expansion-panel-body {
+          display: flex;
+          flex-direction: column;
+
+          .panel-body-option {
+            display: flex;
+            margin: 1rem 0;
+            cursor: pointer;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+
+            mat-icon {
+              margin-right: 0.5rem;
+            }
+
+            a {
+              text-decoration: none;
+              color: black;
+              padding-top: 0.2rem;
+            }
+            &:hover {
+              color: #00477c;
+            }
+          }
+
+          .active {
+            background-color: white;
+            border-radius: 50px;
+            border: 1px solid;
+            transition: all .2s ease-in;
+
+            &:hover {
+              color: black;
+            }
+          }
+        }
+      }
+    }
+
+    .sidenav-button {
+      display: flex;
+      height: 100%;
+      align-items: center;
+
+
+      mat-icon {
+        cursor: pointer;
+        background-color: #dff0ff;
+        border-radius: 50%;
+        margin-right: 0px;
+      }
+    }
+  }
+
+}
+
+mat-drawer-content {
+  margin-left: 292px;
+  z-index: 3;
+}
