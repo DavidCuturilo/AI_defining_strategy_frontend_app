@@ -5,6 +5,8 @@ import { Observable, map, startWith } from 'rxjs';
 import { ToastService } from '../auth/toast.service';
 import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
+import { StrategyService } from './strategy.service';
+import { GenerateStrategyRequestDto } from '../models/request/generate-strategy.request.dto';
 
 @Component({
   selector: 'app-strategy',
@@ -12,6 +14,7 @@ import jsPDF from 'jspdf';
   styleUrls: ['./strategy.component.scss'],
 })
 export class StrategyComponent implements OnInit {
+  constructor(private readonly strategyService: StrategyService) {}
   strategyForm = new FormGroup({
     league: new FormControl('Premier League', Validators.required),
     club: new FormControl('', Validators.required),
@@ -63,9 +66,10 @@ export class StrategyComponent implements OnInit {
     'Luton Town',
   ];
   documents = [
-    { name: `Attack strategy`, content: '' },
-    { name: `Defense strategy`, content: '' },
+    // { name: `Attack strategy`, content: '' },
+    // { name: `Defense strategy`, content: '' },
   ];
+  creatingStrategy = false;
 
   //* Checkbox
   strategyChoices = [
@@ -121,7 +125,7 @@ export class StrategyComponent implements OnInit {
   }
 
   //* Strategy
-  generateStrategy() {
+  async generateStrategy() {
     if (this.strategyForm.invalid || this.desiredStrategy.length == 0) {
       this.toastService.showErrorToast(`All fields needs to be fulfilled!`);
       return;
@@ -129,7 +133,15 @@ export class StrategyComponent implements OnInit {
     const data = this.strategyForm.value;
     data['desiredStrategy'] = this.desiredStrategy;
     console.log(data);
-    this.toastService.showSuccessToast(`Strategy is being processed...`);
+
+    this.creatingStrategy = true;
+    setTimeout(() => {
+      this.documents.push({ name: `Attack strategy`, content: '' });
+      this.creatingStrategy = false;
+    }, 2000);
+
+    const response = await this.strategyService.generateStrategy(data as GenerateStrategyRequestDto);
+    console.log(`Response from backend: ${response}`);
   }
 
   downloadPdf() {

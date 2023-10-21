@@ -83,13 +83,19 @@
         </div>
       </div>
       <div class="strategy-output">
-        <h2>Created strategy:</h2>
-        <mat-card *ngFor="let document of documents">
-          <mat-card-content>
-            <span>{{ document.name }}</span>
-            <mat-icon (click)="downloadPdf()">picture_as_pdf</mat-icon>
-          </mat-card-content>
-        </mat-card>
+        <h2 *ngIf="creatingStrategy">Creating strategy...</h2>
+        <h2 *ngIf="documents.length > 0 && !creatingStrategy">Created strategy:</h2>
+        <ng-container *ngIf="creatingStrategy">
+          <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngIf="documents.length > 0 && !creatingStrategy">
+          <mat-card *ngFor="let document of documents">
+            <mat-card-content>
+              <span>{{ document.name }}</span>
+              <mat-icon (click)="downloadPdf()">picture_as_pdf</mat-icon>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
       </div>
     </mat-card-content>
   </mat-card>

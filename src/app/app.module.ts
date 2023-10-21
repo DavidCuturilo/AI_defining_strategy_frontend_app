@@ -8,14 +8,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { EnvServiceProvider } from './config/env.service.provider';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { StrategyComponent } from './strategy/strategy.component';
-import { ToastrModule } from "ngx-toastr";
+import { ToastrModule } from 'ngx-toastr';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, MenuComponent, FooterComponent, StrategyComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    MenuComponent,
+    FooterComponent,
+    StrategyComponent,
+    ChatComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,7 +36,11 @@ import { ToastrModule } from "ngx-toastr";
     HttpClientModule,
     ToastrModule.forRoot(),
   ],
-  providers: [EnvServiceProvider],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    EnvServiceProvider,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

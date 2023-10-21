@@ -9,8 +9,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -26,7 +29,10 @@ import {MatCardModule} from '@angular/material/card';
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatButtonToggleModule,
+    MatTooltipModule,
   ],
   exports: [
     MatButtonModule,
@@ -41,7 +47,10 @@ import {MatCardModule} from '@angular/material/card';
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatButtonToggleModule,
+    MatTooltipModule,
   ],
 })
 export class MaterialModule {}
