@@ -92,7 +92,7 @@
           <mat-card *ngFor="let document of documents">
             <mat-card-content>
               <span>{{ document.name }}</span>
-              <mat-icon (click)="downloadPdf()">picture_as_pdf</mat-icon>
+              <mat-icon (click)="downloadPdf(document.content)">picture_as_pdf</mat-icon>
             </mat-card-content>
           </mat-card>
         </ng-container>

@@ -13,7 +13,7 @@ export class StrategyService {
 
   async generateStrategy(generateStrategyData: GenerateStrategyRequestDto) {
     return await lastValueFrom(
-      this.http.post(
+      this.http.post<{ message: string }>(
         `${this.envService.apiURL}/open-ai/strategy`,
         generateStrategyData
       )

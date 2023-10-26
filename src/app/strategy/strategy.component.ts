@@ -6,7 +6,10 @@ import { ToastService } from '../auth/toast.service';
 import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
 import { StrategyService } from './strategy.service';
-import { GenerateStrategyRequestDto } from '../models/request/generate-strategy.request.dto';
+import {
+  GenerateStrategyRequestDto,
+  Strategy,
+} from '../models/request/generate-strategy.request.dto';
 
 @Component({
   selector: 'app-strategy',
@@ -70,6 +73,8 @@ export class StrategyComponent implements OnInit {
     // { name: `Defense strategy`, content: '' },
   ];
   creatingStrategy = false;
+  opponentClub;
+  strategy;
 
   //* Checkbox
   strategyChoices = [
@@ -130,30 +135,122 @@ export class StrategyComponent implements OnInit {
       this.toastService.showErrorToast(`All fields needs to be fulfilled!`);
       return;
     }
+    if (
+      this.strategyForm.get('club').value ==
+      this.strategyForm.get('opponentClub').value
+    ) {
+      this.toastService.showErrorToast(
+        `Opponent club can not be the same as yours!`
+      );
+      return;
+    }
+    this.opponentClub = this.strategyForm.get('opponentClub').value;
     const data = this.strategyForm.value;
-    data['desiredStrategy'] = this.desiredStrategy;
-    console.log(data);
+    this.strategy = [...this.desiredStrategy];
+    if (this.desiredStrategy.includes(Strategy.INCLUDE_ALL)) {
+      this.strategy = [
+        Strategy.ATTACK,
+        Strategy.DEFENSE,
+        Strategy.SPECIFIC_STRATEGY,
+      ];
+    }
+    data['desiredStrategy'] = this.strategy;
 
     this.creatingStrategy = true;
-    setTimeout(() => {
-      this.documents.push({ name: `Attack strategy`, content: '' });
-      this.creatingStrategy = false;
-    }, 2000);
 
-    const response = await this.strategyService.generateStrategy(data as GenerateStrategyRequestDto);
-    console.log(`Response from backend: ${response}`);
+    const response = await this.strategyService.generateStrategy(
+      data as GenerateStrategyRequestDto
+    );
+    this.documents.push({
+      name: `Competitive strategy against ${this.opponentClub}`,
+      content: response.message,
+    });
+    this.creatingStrategy = false;
   }
 
-  downloadPdf() {
-    // Assuming pdfBlob contains the PDF as a Blob
-    // const pdfBlob = new Blob([/* PDF content as Uint8Array or ArrayBuffer */], { type: 'application/pdf' });
-
-    // Generate a sample PDF
+  downloadPdf(content: string) {
     const doc = new jsPDF();
-    doc.text('Hello world!', 10, 10);
-    const pdfContent = doc.output('arraybuffer');
-    const pdfBlob = new Blob([pdfContent], { type: 'application/pdf' });
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    const title = `${this.opponentClub} Strategy Guide`;
+    const titleWidth =
+      (doc.getStringUnitWidth(title) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const titleX = (doc.internal.pageSize.width - titleWidth) / 2;
 
-    FileSaver.saveAs(pdfBlob, 'your-file-name.pdf');
+    doc.text(title, titleX, 20);
+    //   const text = `
+    // Crystal Palace Strengths:
+
+    // Counter-Attacking Play: Crystal Palace is known for their ability to quickly transition from defense to offense, making them dangerous on the counter-attack.
+    // Set Pieces: They have shown proficiency in set pieces, particularly in delivering and finishing from corners and free kicks.
+    // Physicality: Crystal Palace tends to have physically imposing players, especially in defense and midfield.
+
+    // Crystal Palace Weaknesses:
+
+    // Defensive Vulnerabilities: They can sometimes struggle with defending against fast-paced attacks and intricate passing play.
+    // Aerial Vulnerabilities: Despite their physicality, they can be susceptible to well-executed aerial attacks.
+    // Midfield Pressing: Their midfield can sometimes struggle with pressing high up the pitch.
+
+    // Competitive Strategy:
+
+    // Offense:
+
+    // Quick Transitions: Given Crystal Palace's strength in counter-attacks, it's essential to maintain possession when in their half and be organized in transition from defense to offense.
+
+    // Exploit Width: Crystal Palace may struggle with wide play, so utilize your wingers to stretch their defense and deliver crosses into the box.
+
+    // Attacking Midfielders: Use creative and agile midfielders to exploit spaces between their defense and midfield. Look for incisive through balls and shots from distance.
+
+    // Set Piece Training: Focus on defensive and offensive set piece training. This will help neutralize their strength and potentially exploit their vulnerabilities.
+
+    // Defense:
+
+    // Solid Defensive Structure: Maintain a compact defensive shape to limit Crystal Palace's options in the final third. Be organized and communicate effectively.
+
+    // Aerial Dominance: Given their vulnerability in the air, prioritize strong aerial defenders and midfielders. Train set-piece defending to minimize their threat.
+
+    // Pressing Midfield: Apply selective high pressing in the midfield to disrupt their build-up play. Force them into making hurried decisions.
+
+    // Quick Recovery: Emphasize quick recovery when possession is lost. This will help nullify their counter-attacking opportunities.
+
+    // Specialized Tactics:
+
+    // Exploit Flanks: Target the areas around their full-backs, particularly if they have any defensive weaknesses in those positions.
+
+    // Man-Marking Key Players: Identify their key playmakers and consider employing man-marking to limit their influence on the game.
+
+    // Scout Individual Weaknesses: If there are specific players in the Crystal Palace squad with known vulnerabilities, exploit them through targeted attacks.
+
+    // Remember, the effectiveness of any strategy can be influenced by real-time factors such as player form, injuries, and tactical adjustments made by the opposing team. Always stay flexible and be prepared to adapt your approach during the match. Good luck with your game against Crystal Palace!
+    // `;
+
+    const text = content;
+    const margin = 10;
+    const lineHeight = 7;
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(15);
+
+    let cursor = 40;
+    let lines = doc.splitTextToSize(
+      text,
+      doc.internal.pageSize.width - 2 * margin
+    );
+
+    lines.forEach((line) => {
+      if (cursor > pageHeight - margin) {
+        doc.addPage();
+        cursor = margin;
+      }
+      // Add the line to the document
+      line = line.replace(/\*(.*?)\*/g, '<b>$1</b>');
+      doc.html(line, { margin: [10, 10] });
+      doc.text(line, margin, cursor, { align: 'justify' });
+
+      cursor += lineHeight;
+    });
+    // Save the PDF
+    doc.save(`${this.opponentClub}_competitive_strategy.pdf`);
   }
 }

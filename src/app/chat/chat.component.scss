@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 600px;
+    height: 670px;
 
     h2 {
       text-align: center;
@@ -14,12 +14,13 @@
 
     .chat-area {
       text-align: center;
-      height: 425px;
+      height: 490px;
       border: 1px solid;
       width: 50%;
       margin-top: 5%;
       align-self: center;
       border-radius: 10px;
+      overflow-y: auto;
 
       .message {
         padding-top: 0.8em;
@@ -37,7 +38,7 @@
 
         &:nth-child(even) {
           text-align: start;
-          margin-left: 30px;
+          margin-left: 20px;
           margin-right: 10px;
 
           span {
@@ -50,7 +51,7 @@
 
         &:nth-child(odd) {
           text-align: end;
-          margin-right: 30px;
+          margin-right: 20px;
           margin-left: 10px;
 
           span {

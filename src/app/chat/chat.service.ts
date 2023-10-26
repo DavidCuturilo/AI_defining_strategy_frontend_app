@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { EnvService } from './../config/env.service';
 import { Injectable, Injector } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { GenerateChatResponseDto } from '../models/response/generate-chat.response.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class ChatService {
 
   async chat(generateChatData: GenerateChatRequestDto) {
     return await lastValueFrom(
-      this.http.post<{ message: string }>(
+      this.http.post<GenerateChatResponseDto>(
         `${this.envService.apiURL}/open-ai/chat`,
         generateChatData
       )
