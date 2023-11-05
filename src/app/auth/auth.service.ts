@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Subject, lastValueFrom } from 'rxjs';
 import { EnvService } from '../config/env.service';
+import { LoginUserRequestDto } from '../models/request/login-user.request.dto';
+import { RegisterUserRequestDto } from '../models/request/register-user.request.dto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -31,10 +33,10 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  async signIn(loginUser) {
+  async login(loginUser: LoginUserRequestDto) {
     const response = await lastValueFrom(
       this.http.post<{ access_token: string; expiresIn: number }>(
-        `${this.envService.apiURL}/auth/loginUser`,
+        `${this.envService.apiURL}/auth/login`,
         loginUser
       )
     )
@@ -54,51 +56,49 @@ export class AuthService {
           );
           this.saveAuthData(access_token, expirationDate);
 
-          this.router.navigate(['/matches']);
+          this.router.navigate(['/strategy']);
         }
       })
       .catch((error) => {
-        if (error.status === 401) {
-          this.errorMessage = 'Wrong username or password';
-        }
+        this.errorMessage = error.error.message;
         console.log('Error message: ' + this.errorMessage);
       });
     return this.errorMessage;
   }
 
-  // async register(registerUser: RegisterUserModel) {
-  //   const response = await lastValueFrom(
-  //     this.http.post<{ access_token: string; expiresIn: number }>(
-  //       `${this.envService.apiURL}/auth/registerUser`,
-  //       registerUser
-  //     )
-  //   )
-  //     .then((response) => {
-  //       const access_token = response.access_token;
-  //       this.access_token = access_token;
-  //       if (access_token) {
-  //         const expiresInDuration = response.expiresIn;
-  //         this.setAuthTimer(expiresInDuration);
+  async register(registerUser: RegisterUserRequestDto) {
+    const response = await lastValueFrom(
+      this.http.post<{ access_token: string; expiresIn: number }>(
+        `${this.envService.apiURL}/auth/register`,
+        registerUser
+      )
+    )
+      .then((response) => {
+        const access_token = response.access_token;
+        this.access_token = access_token;
+        if (access_token) {
+          const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
 
-  //         this.isAuthenticated = true;
-  //         this.authStatusListener.next(true);
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
 
-  //         const now = new Date();
-  //         const expirationDate = new Date(
-  //           now.getTime() + expiresInDuration * 1000
-  //         );
-  //         this.saveAuthData(access_token, expirationDate);
+          const now = new Date();
+          const expirationDate = new Date(
+            now.getTime() + expiresInDuration * 1000
+          );
+          this.saveAuthData(access_token, expirationDate);
 
-  //         this.router.navigate(['/matches']);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       if (error.status === 406) {
-  //         this.errorMessage = 'Username already taken.';
-  //       }
-  //     });
-  //   return this.errorMessage;
-  // }
+          this.router.navigate(['/strategy']);
+        }
+      })
+      .catch((error) => {
+        if (error.status === 406) {
+          this.errorMessage = 'Username already taken.';
+        }
+      });
+    return this.errorMessage;
+  }
 
   autoAuthUser() {
     const authInformation = this.getAuthData();
@@ -122,7 +122,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.router.navigate(['/signIn']);
+    this.router.navigate(['/login']);
   }
 
   private setAuthTimer(duration: number) {

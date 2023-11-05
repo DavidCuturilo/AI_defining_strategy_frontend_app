@@ -18,12 +18,12 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // const token = this.authService.getToken();
+    const token = this.authService.getToken();
 
     const authRequest = request.clone({
       setHeaders: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         ai_assist_apiKey: this.envService.ai_assist_apiKey,
       },
     });

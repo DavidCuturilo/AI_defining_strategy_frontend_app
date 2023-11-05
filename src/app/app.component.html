@@ -1,4 +1,4 @@
 <app-header></app-header>
-<app-menu></app-menu>
+<app-menu *ngIf="(shouldShowMenu$ | async)"></app-menu>
 <router-outlet></router-outlet>
 <app-footer></app-footer>

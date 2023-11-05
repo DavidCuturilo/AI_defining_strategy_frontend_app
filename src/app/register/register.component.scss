@@ -1,0 +1,160 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin-top: 13%;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .login-form {
+    width: 25%;
+    height: 450px;
+    .title {
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 35px;
+      margin-bottom: 0.5rem;
+    }
+
+    .card {
+      background-color: white;
+      width: 100%;
+      height: 86%;
+      padding-top: 1rem;
+
+      .form {
+        width: 100%;
+
+        .name-lastname {
+          display: flex;
+          justify-content: space-between;
+
+          p {
+            width: 45%;
+
+
+            mat-form-field {
+              min-width: 100%;
+            }
+          }
+        }
+
+        .password-field {
+          margin-bottom: 0px;
+
+          .password-input {
+            position: relative;
+
+            .eye {
+              width: 1.4rem;
+              position: absolute;
+              top: 20px;
+              right: -10px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .error {
+        padding: 10px;
+        color: red;
+        margin-bottom: 0.5rem;
+        border: solid 0.1rem;
+        border-color: red;
+        font-size: 14px;
+        text-align: center;
+        border-radius: 10px;
+      }
+
+      .button {
+        display: flex;
+        justify-content: center;
+
+        button {
+          border: 1px solid #00477c;
+          background-color: #dff0ff;
+          width: 120px;
+          border-radius: 30px;
+        }
+      }
+    }
+  }
+
+  .login-image-section {
+    height: 450px;
+    width: 17%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    h1 {
+      font-size: 30px;
+      width: 215px;
+      text-align: center;
+    }
+
+    .login-details {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      color: white;
+      height: 300px;
+      justify-content: space-evenly;
+      align-items: center;
+
+      span {
+        width: 200px;
+        text-align: center;
+      }
+
+      .register-button {
+        width: 50%;
+        border: 1px solid #00477c;
+        border-radius: 30px;
+        width: 120px;
+      }
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+mat-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-spinner {
+  margin: auto;
+  margin-top: 1rem;
+}
+
+@media (max-width: 400px) {
+  :host {
+    margin-top: 15rem;
+  }
+
+  mat-card {
+    width: 70%;
+  }
+
+  mat-form-field {
+    width: 100%;
+    min-width: 250px;
+  }
+}

@@ -16,6 +16,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ChatComponent } from './chat/chat.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ChatComponent } from './chat/chat.component';
     FooterComponent,
     StrategyComponent,
     ChatComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

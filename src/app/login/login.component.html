@@ -1,0 +1,53 @@
+<div class="container">
+
+  <div class="login-form">
+    <h1 class="title">Login to your account!</h1>
+
+    <mat-card class="card">
+      <mat-card-content *ngIf="!isLoading">
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="form">
+          <p>
+            <mat-form-field>
+              <input
+                type="text"
+                matInput
+                placeholder="Username"
+                formControlName="username"
+              />
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field class="password-input">
+              <input
+                #password [type]="showPassword ? 'text' : 'password'"
+                matInput
+                placeholder="Password"
+                formControlName="password"
+              />
+              <img src="../../assets/view.png" matTooltip="Show password" matTooltipPosition="above" class="eye" *ngIf="!showPassword" (click)="changePasswordVisibility()" alt="">
+              <img src="../../assets/hidden.png" matTooltip="Hided password" matTooltipPosition="above" class="eye" *ngIf="showPassword" (click)="changePasswordVisibility()" alt="">
+            </mat-form-field>
+          </p>
+
+          <mat-error *ngIf="errorMessage" class="error">
+            {{ errorMessage }}
+          </mat-error>
+
+          <div class="button">
+            <button type="submit" mat-button>Login</button>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </mat-card>
+  </div>
+  <div class="login-image-section">
+    <img src="../../assets/background.jpg" alt="">
+    <div class="login-details">
+      <h1>New Here?</h1>
+      <span>Register and discover a great amount of new opportunities!</span>
+      <button routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="register-button" mat-raised-button>Register</button>
+    </div>
+  </div>
+</div>
