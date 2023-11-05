@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AlreadyLoggedGuard } from './auth/already-logged.guard';
 import { AuthGuard } from './auth/auth.guard';
 import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full',redirectTo: 'login' },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent },
   { path: 'strategy', component: StrategyComponent },
   { path: 'tactics', component: MenuComponent, canActivate: [AuthGuard] },
-  { path: 'information', component: MenuComponent, canActivate: [AuthGuard] }
+  { path: 'information', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

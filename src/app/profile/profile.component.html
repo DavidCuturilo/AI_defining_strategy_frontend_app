@@ -1,0 +1,40 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content class="container-card">
+      <div class="personal-information">
+        <div class="image">
+          <img src="../../assets/profile.jpg" />
+        </div>
+        <div class="information">
+          <h2>Personal information</h2>
+          <div class="information-content">
+            <div class="information-content-row">
+              <span class="information-content-row-title">Name:</span>
+              <input class="information-content-row-value" type="text" value="{{ user.name }}" disabled>
+            </div>
+            <div class="information-content-row">
+              <span class="information-content-row-title">Lastname:</span>
+              <input class="information-content-row-value" type="text" value="{{ user.lastname }}" disabled>
+            </div>
+            <div class="information-content-row">
+              <span class="information-content-row-title">Username:</span>
+              <input class="information-content-row-value" type="text" value="{{ user.username }}" disabled>
+            </div>
+            <div class="information-content-row">
+              <span class="information-content-row-title disabled">Email:</span>
+              <input class="information-content-row-value" type="text" value="" disabled>
+            </div>
+
+            <div class="action-buttons">
+              <button class="edit-button" mat-raised-button (click)="editInformation()">Edit <mat-icon>edit</mat-icon></button>
+            </div>
+          </div>
+        </div>
+        <div class="change-password">
+          <span>You want to change your password?</span>
+          <button class="change-password-button" mat-raised-button>Click here! 	<mat-icon>settings</mat-icon></button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
