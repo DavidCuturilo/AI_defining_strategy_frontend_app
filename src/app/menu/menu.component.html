@@ -16,29 +16,33 @@
             </div>
             <div class="panel-body-option" routerLink="/strategy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
               <mat-icon>event_note</mat-icon>
-              <a>Defining strategy</a>
+              <a>Define strategy</a>
             </div>
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon style="margin-right: 0.5rem;"> person_pin</mat-icon>
-              Profile
+              <mat-icon style="margin-right: 0.5rem;">info</mat-icon>
+              Dashboard
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div class="expansion-panel-body">
-            <div class="panel-body-option" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <div *ngIf="!isLoggedIn" class="panel-body-option" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
               <mat-icon>verified_user</mat-icon>
               <a>Login</a>
             </div>
           <div class="panel-body-option" routerLink="/tactics" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <mat-icon>save_alt</mat-icon>
-            <a>Saved tactics</a>
+            <a>Saved strategy</a>
           </div>
           <div class="panel-body-option" routerLink="/information" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <mat-icon>info</mat-icon>
-            <a>Personal information</a>
+            <mat-icon>person_pin</mat-icon>
+            <a>Profile</a>
+          </div>
+          <div *ngIf="isLoggedIn" (click)="logout()" class="panel-body-option" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon>exit_to_app</mat-icon>
+            <a>Logout</a>
           </div>
         </div>
         </mat-expansion-panel>

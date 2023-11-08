@@ -89,10 +89,13 @@
           <mat-spinner></mat-spinner>
         </ng-container>
         <ng-container *ngIf="documents.length > 0 && !creatingStrategy">
-          <mat-card *ngFor="let document of documents">
+          <mat-card *ngFor="let document of documents; let i = index;">
             <mat-card-content>
               <span>{{ document.name }}</span>
-              <mat-icon (click)="downloadPdf(document.content)">picture_as_pdf</mat-icon>
+              <div class="actions">
+                <mat-icon matTooltip="Save" matTooltipPosition="above" (click)="saveStrategy(i)">save</mat-icon>
+                <mat-icon matTooltip="Download" matTooltipPosition="above" (click)="downloadPdf(document.content)">picture_as_pdf</mat-icon>
+              </div>
             </mat-card-content>
           </mat-card>
         </ng-container>

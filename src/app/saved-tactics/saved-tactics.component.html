@@ -1,0 +1,40 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content class="container-card">
+      <div class="strategy-definition">
+        <mat-card class="definition-card">
+          <mat-card-content>
+            <span>"Competition strategy in sports refers to a systematic plan or approach designed to gain an advantage over opponents with the ultimate goal of securing victory. It involves a combination of tactical decisions, mental preparedness, and physical execution aimed at outperforming the adversary. An effective competition strategy takes into account both the strengths and weaknesses of one's own team as well as those of the opposition."</span>
+            <p>- Jack Welch -</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="strategy-output">
+        <div class="strategy-header">
+          <h1>Saved strategies by clubs</h1>
+          <div class="strategy-information">
+            <div class="strategy-details" *ngFor="let strategy of strategies">
+              <img src="{{ strategy.imagePath }}" alt="">
+              <span>{{ strategy.details }} strategy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="strategy-by-club" *ngFor="let clubStrategy of strategyByClubs">
+          <span class="club-name">{{ clubStrategy.club }}</span>
+          <mat-card *ngFor="let document of clubStrategy.strategy; let i = index;">
+            <mat-card-content>
+              <span>{{ document.name }}</span>
+              <div class="actions">
+                <div class="strategy-icons" *ngFor="let strategyIcon of document.type">
+                  <img src="../../assets/strategy_icons/{{ strategyIcon.toLowerCase() }}.png" alt="">
+                </div>
+                <mat-icon matTooltip="Download" matTooltipPosition="above" (click)="downloadPdf(i)">picture_as_pdf</mat-icon>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

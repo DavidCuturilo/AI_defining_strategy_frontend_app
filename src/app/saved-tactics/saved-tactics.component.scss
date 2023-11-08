@@ -1,0 +1,92 @@
+.container {
+  margin: 8% 2rem 2rem 20%;
+
+  .container-card {
+    display: flex;
+    flex-direction: column;
+
+    .strategy-definition {
+      .definition-card {
+        margin-bottom: 5rem;
+        background-color: #dff0ff;
+        font-style: italic;
+        font-size: 17px;
+        font-family: serif;
+
+        p {
+          text-align: end;
+          margin-right: 1rem;
+          margin-top: 0.5rem;
+        }
+      }
+    }
+
+    .strategy-output {
+      width: 100%;
+
+      .strategy-header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #c9c9ca;
+        margin-bottom: 3rem;
+
+        .strategy-information {
+          display: flex;
+          align-items: center;
+          margin-right: 0.5rem;
+
+          .strategy-details {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+
+            img {
+              width: 2rem;
+              margin-left: 1rem;
+            }
+          }
+        }
+      }
+
+      .strategy-by-club {
+        margin-bottom: 2.5rem;
+        .club-name {
+          font-size: 18px;
+        }
+
+        mat-card {
+          width: 100%;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          margin-left: 0.5rem;
+
+          mat-card-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+              font-size: 16px;
+            }
+
+            .actions {
+              display: flex;
+              align-items: center;
+
+              .strategy-icons {
+                img {
+                  width: 1.7rem;
+                }
+              }
+
+              mat-icon {
+                cursor: pointer;
+                margin-left: 4rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

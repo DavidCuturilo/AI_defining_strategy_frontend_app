@@ -265,8 +265,11 @@
             font-size: 16px;
           }
 
-          mat-icon {
-            cursor: pointer;
+          .actions {
+            mat-icon {
+              cursor: pointer;
+              margin-left: 2rem;
+            }
           }
         }
       }

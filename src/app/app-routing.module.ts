@@ -8,6 +8,7 @@ import { AlreadyLoggedGuard } from './auth/already-logged.guard';
 import { AuthGuard } from './auth/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SavedTacticsComponent } from './saved-tactics/saved-tactics.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full',redirectTo: 'login' },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [AlreadyLoggedGuard] },
   { path: 'chat', component: ChatComponent },
   { path: 'strategy', component: StrategyComponent },
-  { path: 'tactics', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'tactics', component: SavedTacticsComponent, canActivate: [AuthGuard] },
   { path: 'information', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 
