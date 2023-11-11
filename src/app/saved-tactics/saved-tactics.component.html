@@ -22,14 +22,15 @@
 
         <div class="strategy-by-club" *ngFor="let clubStrategy of strategyByClubs">
           <span class="club-name">{{ clubStrategy.club }}</span>
-          <mat-card *ngFor="let document of clubStrategy.strategy; let i = index;">
+          <mat-card *ngFor="let document of clubStrategy.strategy">
             <mat-card-content>
               <span>{{ document.name }}</span>
               <div class="actions">
                 <div class="strategy-icons" *ngFor="let strategyIcon of document.type">
                   <img src="../../assets/strategy_icons/{{ strategyIcon.toLowerCase() }}.png" alt="">
                 </div>
-                <mat-icon matTooltip="Download" matTooltipPosition="above" (click)="downloadPdf(i)">picture_as_pdf</mat-icon>
+                <mat-icon class="remove" matTooltip="Remove" matTooltipPosition="above" (click)="remove(document.id)">delete</mat-icon>
+                <mat-icon matTooltip="Download" matTooltipPosition="above" (click)="downloadPdf(document.id)">picture_as_pdf</mat-icon>
               </div>
             </mat-card-content>
           </mat-card>

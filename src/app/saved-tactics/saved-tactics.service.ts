@@ -18,4 +18,12 @@ export class SavedTacticsService {
       )
     );
   }
+
+  async removeStrategy(strategyId: number) {
+    return await lastValueFrom(
+      this.http.delete(
+        `${this.envService.apiURL}/open-ai/saved-tactics/${strategyId}`
+      )
+    );
+  }
 }

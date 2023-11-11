@@ -74,14 +74,19 @@
               align-items: center;
 
               .strategy-icons {
+                margin-left: 1.8rem;
                 img {
                   width: 1.7rem;
                 }
               }
 
+              .remove {
+                margin-left: 5rem;
+                margin-right: 2rem;
+              }
+
               mat-icon {
                 cursor: pointer;
-                margin-left: 4rem;
               }
             }
           }

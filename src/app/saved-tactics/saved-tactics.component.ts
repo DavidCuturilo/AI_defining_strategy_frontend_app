@@ -11,6 +11,7 @@ import { SavedTacticsResponseDto } from '../models/response/saved-tactics.respon
 })
 export class SavedTacticsComponent implements OnInit{
   strategyDocuments: {
+    id?: number;
     name: string;
     content: string;
     opponentClub: string;
@@ -23,8 +24,8 @@ export class SavedTacticsComponent implements OnInit{
   strategies: { imagePath: string, details: string}[] = [
     { imagePath: "../../assets/strategy_icons/attack.png", details: "Offensive" },
     { imagePath: "../../assets/strategy_icons/defense.png", details: "Defensive" },
-    { imagePath: "../../assets/strategy_icons/specific.png", details: "Specific" },
-    { imagePath: "../../assets/strategy_icons/overall.png", details: "Overall" },
+    { imagePath: "../../assets/strategy_icons/specific strategy.png", details: "Specific" },
+    { imagePath: "../../assets/strategy_icons/include all.png", details: "Overall" },
   ]
 
   constructor(private readonly savedTacticsService: SavedTacticsService) { }
@@ -44,18 +45,19 @@ export class SavedTacticsComponent implements OnInit{
     });
   }
 
-  downloadPdf(index: number) {
+  downloadPdf(documentId: number) {
     const doc = new jsPDF();
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
-    const title = `${this.strategyDocuments[index].opponentClub} Strategy Guide`;
+    const document = this.strategyDocuments.find((strategy) => strategy.id === documentId);
+    const title = `${document.opponentClub} Strategy Guide`;
     const titleWidth =
       (doc.getStringUnitWidth(title) * doc.getFontSize()) /
       doc.internal.scaleFactor;
     const titleX = (doc.internal.pageSize.width - titleWidth) / 2;
 
     doc.text(title, titleX, 20);
-    const text = this.strategyDocuments[index].content;
+    const text = document.content;
     const margin = 10;
     const lineHeight = 7;
     const pageHeight = doc.internal.pageSize.height;
@@ -81,6 +83,14 @@ export class SavedTacticsComponent implements OnInit{
       cursor += lineHeight;
     });
     // Save the PDF
-    doc.save(`${this.strategyDocuments[index].name}.pdf`);
+    doc.save(`${document.name}.pdf`);
+  }
+
+  async remove(documentId: number) {
+    await this.savedTacticsService.removeStrategy(documentId);
+    this.strategyDocuments = this.strategyDocuments.filter(
+      (strategy) => strategy.id !== documentId
+    );
+    this.ngOnInit();
   }
 }
