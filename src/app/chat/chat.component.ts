@@ -38,10 +38,10 @@ export class ChatComponent implements OnInit {
       ],
     };
 
+    const responseMessagePlaceholder = { role: 'assistant' as ChatCompletionRole, content: '' };
+    this.messages.push(responseMessagePlaceholder);
     const responseMessage = await this.chatService.chat(generateChatRequest);
-    setTimeout(() => {
-      this.messages.push(responseMessage);
-      this.isGeneratingMessageDone = true;
-    }, 2000);
+    this.messages[this.messages.length - 1].content = responseMessage.content;
+    this.isGeneratingMessageDone = true;
   }
 }

@@ -12,7 +12,8 @@
       <div class="chat-area">
         <div class="message" *ngFor="let message of messages; let i = index">
           <img *ngIf="i % 2 == 1" src="../../assets/ai_message.png">
-          <span>{{ message.content }}</span>
+          <div class="loader" *ngIf="i % 2 == 1 && !isGeneratingMessageDone"></div>
+          <span *ngIf="message.content">{{ message.content }}</span>
           <div class="space-between-messages"></div>
         </div>
       </div>
