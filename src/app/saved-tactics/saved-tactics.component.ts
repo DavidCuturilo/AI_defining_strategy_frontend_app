@@ -16,7 +16,7 @@ export class SavedTacticsComponent implements OnInit{
     content: string;
     opponentClub: string;
     club: string;
-    type: Strategy;
+    type: Strategy[];
   }[];
   userId = 1;
   strategyByClubs: { club: string, strategy: SavedTacticsResponseDto[] }[];
@@ -31,7 +31,13 @@ export class SavedTacticsComponent implements OnInit{
   constructor(private readonly savedTacticsService: SavedTacticsService) { }
 
   async ngOnInit() {
-    this.strategyDocuments = await this.savedTacticsService.getSavedTactics(this.userId);
+    this.strategyDocuments = (await this.savedTacticsService.getSavedTactics(this.userId));
+
+    this.strategyDocuments.map((strategy) => {
+      if (strategy.type.includes(Strategy.ATTACK) && strategy.type.includes(Strategy.DEFENSE) && strategy.type.includes(Strategy.SPECIFIC_STRATEGY)) {
+        strategy.type = [Strategy.INCLUDE_ALL];
+      }
+    });
 
     this.strategyByClubs = [];
 

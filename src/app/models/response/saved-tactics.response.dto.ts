@@ -6,5 +6,5 @@ export class SavedTacticsResponseDto {
   content: string;
   opponentClub: string;
   club: string;
-  type: Strategy
+  type: Strategy[];
 }
