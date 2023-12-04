@@ -11,10 +11,10 @@ export class SavedTacticsService {
   constructor(private http: HttpClient, private injector: Injector) {}
   envService: EnvService = this.injector.get(EnvService);
 
-  async getSavedTactics(userId: number) {
+  async getSavedTactics() {
     return await lastValueFrom(
       this.http.get<SavedTacticsResponseDto[]>(
-        `${this.envService.apiURL}/open-ai/saved-tactics/${userId}`
+        `${this.envService.apiURL}/open-ai/saved-tactics`
       )
     );
   }
