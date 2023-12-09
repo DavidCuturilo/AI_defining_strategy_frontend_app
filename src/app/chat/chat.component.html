@@ -5,14 +5,14 @@
       <div class="chat-configuration">
         <mat-label>Ask about:</mat-label>
         <mat-button-toggle-group [(ngModel)]="chat_configuration" name="fontStyle">
-          <mat-button-toggle value="Strategy" checked="true">Sport strategy</mat-button-toggle>
-          <mat-button-toggle value="Other">Other</mat-button-toggle>
+          <mat-button-toggle (click) = "clearChat()"  value="Strategy" checked="true">Sport strategy</mat-button-toggle>
+          <mat-button-toggle (click) = "clearChat()" value="Other">Other</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
       <div class="chat-area">
         <div class="message" *ngFor="let message of messages; let i = index">
           <img *ngIf="i % 2 == 1" src="../../assets/ai_message.png">
-          <div class="loader" *ngIf="i % 2 == 1 && !isGeneratingMessageDone"></div>
+          <div class="loader" *ngIf="i % 2 == 1 && !isGeneratingMessageDone && !message.content"></div>
           <span *ngIf="message.content">{{ message.content }}</span>
           <div class="space-between-messages"></div>
         </div>

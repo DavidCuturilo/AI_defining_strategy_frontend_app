@@ -56,7 +56,7 @@ export class AuthService {
           );
           this.saveAuthData(access_token, expirationDate);
 
-          this.router.navigate(['/strategy']);
+          this.router.navigate(['/chat']);
         }
       })
       .catch((error) => {
@@ -89,7 +89,7 @@ export class AuthService {
           );
           this.saveAuthData(access_token, expirationDate);
 
-          this.router.navigate(['/strategy']);
+          this.router.navigate(['/chat']);
         }
       })
       .catch((error) => {

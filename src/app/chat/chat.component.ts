@@ -44,4 +44,8 @@ export class ChatComponent implements OnInit {
     this.messages[this.messages.length - 1].content = responseMessage.content;
     this.isGeneratingMessageDone = true;
   }
+
+  clearChat() {
+    this.messages = [];
+  }
 }
